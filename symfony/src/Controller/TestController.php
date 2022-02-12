@@ -20,11 +20,10 @@ class TestController
                 ]);
 
         $responseArray = $response->toArray();
-        var_dump($responseArray['token_type'] . ' ' . $responseArray['access_token']);
 
         // Rest API
         $client = HttpClient::create();
-        $response = $client->request('GET', 'https://api.richtlijnendatabase.nl/guidelines',
+        $response = $client->request('GET', 'https://rdbapi.staging.sidekickit.nl',
             [
                 'headers' => [
                     'Authorization' =>  $responseArray['token_type'] . ' ' . $responseArray['access_token'],
