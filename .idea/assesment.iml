@@ -38,6 +38,8 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/dependency-injection" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/polyfill-intl-grapheme" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/http-client-contracts" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
