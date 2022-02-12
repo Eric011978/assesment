@@ -15,6 +15,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class ImportGuidelinesCommand extends Command
 {
+    protected static $defaultName = 'Test';
+    protected static $defaultDescription = 'Test';
+
     public function __construct(bool $test = false)
     {
         // best practices recommend to call the parent constructor first and
