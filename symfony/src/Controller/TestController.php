@@ -8,6 +8,7 @@ class TestController
 {
     public function test()
     {
+        // Access token request
         $client = HttpClient::create();
         $response = $client->request('POST', 'https://rdbauth.staging.sidekickit.nl/token',
             [
@@ -20,6 +21,8 @@ class TestController
 
         $responseArray = $response->toArray();
         var_dump($responseArray['token_type'] . ' ' . $responseArray['access_token']);
+
+        // Rest API
         $client = HttpClient::create();
         $response = $client->request('GET', 'https://api.richtlijnendatabase.nl/guidelines',
             [
