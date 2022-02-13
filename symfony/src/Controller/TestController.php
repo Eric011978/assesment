@@ -23,14 +23,13 @@ class TestController
 
         // Rest API
         $client = HttpClient::create();
-        $response = $client->request('GET', 'https://rdbapi.staging.sidekickit.nl',
+        $response = $client->request('GET', 'https://rdbapi.staging.sidekickit.nl/guidelines',
             [
                 'headers' => [
                     'Authorization' =>  $responseArray['token_type'] . ' ' . $responseArray['access_token'],
                 ],
             ]);
-        $contentArray = $response->toArray();
-        var_dump($contentArray['guideline']); die;
+        var_dump($response->toArray()); die;
 
         $statusCode = $response->getStatusCode();
         // $statusCode = 200

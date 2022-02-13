@@ -40,6 +40,29 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/http-client" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/http-client-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/proxy-manager-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/stopwatch" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/doctrine-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/orm" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/persistence" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/common" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/doctrine-migrations-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/migrations" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/friendsofphp/proxy-manager-lts" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/laminas/laminas-code" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/sql-formatter" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/collections" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/doctrine-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/maker-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
