@@ -1,5 +1,4 @@
 # assesment execution
-
 - Composer install
 - In .env file db goed neerzetten
 - Terminal: php bin/console doctrine:database:create
