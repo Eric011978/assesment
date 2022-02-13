@@ -63,6 +63,10 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/deprecations" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/nikic/php-parser" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/maker-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/twig-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/twig-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/translation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/twig/twig" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

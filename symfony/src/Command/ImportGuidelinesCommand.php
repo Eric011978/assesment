@@ -26,7 +26,7 @@ class ImportGuidelinesCommand extends Command
 
     protected static $defaultDescription = 'Test';
 
-    public function __construct(bool $test = false, ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $doctrine, bool $test = false)
     {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
