@@ -1,8 +1,8 @@
 # config/routes.yaml
 
 test_api:
-    path: /test/test
-    controller: App\Controller\TestController::test
+    path: /guidelines
+    controller: App\Controller\GuidelinesController::index
 
 controllers:
     resource: ../src/Controller/
