@@ -3,6 +3,11 @@
 // src/Command/ImportGuidelinesCommand.php
 namespace App\Command;
 
+use App\Entity\Guideline;
+use App\Entity\GuidelineNavigation;
+use App\Entity\Module;
+use App\Entity\ModuleHyperlink;
+use App\Entity\ModuleReference;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,6 +59,132 @@ class ImportGuidelinesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->truncateTables();
 
+        $this->importGuidelines();
+        $this->importModules();
+        $this->importGuideNavigations();
+        $this->importModuleReferences();
+        $this->importModuleHyperlinks();
+
+        return Command::SUCCESS;
+    }
+
+    private function truncateTables() {
+        $connection = $this->entityManager->getConnection();
+        $platform   = $connection->getDatabasePlatform();
+
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
+        $connection->executeUpdate($platform->getTruncateTableSQL('module_hyperlink', true));
+        $connection->executeUpdate($platform->getTruncateTableSQL('module_reference', true));
+        $connection->executeUpdate($platform->getTruncateTableSQL('guideline_navigation', true));
+        $connection->executeUpdate($platform->getTruncateTableSQL('guideline', true));
+        $connection->executeUpdate($platform->getTruncateTableSQL('module', true));
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
+    }
+
+    private function getRequestToApi($endpoint) {
+        $client = HttpClient::create();
+
+        return $client->request('GET', $this->apiUrl . '/' . $endpoint, [
+            'headers' => $this->authHeaders,
+        ])->toArray();
+    }
+
+    private function importGuidelines() {
+        $response = $this->getRequestToApi('guidelines?order[authorisationDate]=desc');
+
+        foreach($response['hydra:member'] as $index => $hydraGuideline) {
+            $guideline = new Guideline();
+            $guideline->setTitle($hydraGuideline['title'])
+                ->setExternalId($hydraGuideline['@id']);
+
+            $this->entityManager->persist($guideline);
+            $this->entityManager->flush();
+
+            if ($index == 24) {
+                break;
+            }
+        }
+    }
+
+
+    private function importModules() {
+        $response = $this->getRequestToApi('modules');
+
+        foreach($response['hydra:member'] as $hydraModule) {
+            $module = new Module();
+            $module->setTitle($hydraModule['title'])
+                ->setExternalId($hydraModule['@id']);
+
+            $this->entityManager->persist($module);
+            $this->entityManager->flush();
+        }
+    }
+
+
+    private function importGuideNavigations()
+    {
+        $response = $this->getRequestToApi('guideline_navigations');
+
+        foreach ($response['hydra:member'] as $hydraGuidelineNavigation) {
+            $guideline = $this->doctrine->getRepository(Guideline::class)->findOneBy(['externalId' => $hydraGuidelineNavigation['guideline']]);
+            $module = $this->doctrine->getRepository(Module::class)->findOneBy(['externalId' => $hydraGuidelineNavigation['module']]);
+
+            if (!$guideline) {
+                continue;
+            }
+
+            $guidelineNavigation = new GuidelineNavigation();
+            $guidelineNavigation->setTitle($hydraGuidelineNavigation['title'])
+                ->setExternalId($hydraGuidelineNavigation['@id'])
+                ->setGuideline($guideline)
+                ->setModule($module);
+
+            $this->entityManager->persist($guidelineNavigation);
+            $this->entityManager->flush();
+        }
+    }
+
+
+    private function importModuleReferences() {
+        $response = $this->getRequestToApi('module_references');
+
+        foreach($response['hydra:member'] as $hydraModuleReference) {
+            $module = $this->doctrine->getRepository(Module::class)->findOneBy(['externalId' => $hydraModuleReference['module']]);
+
+            if (!$module) {
+                continue;
+            }
+
+            $moduleReference = new ModuleReference();
+            $moduleReference->setContent($hydraModuleReference['content'])
+                ->setExternalId($hydraModuleReference['@id'])
+                ->setModule($module);
+
+            $this->entityManager->persist($moduleReference);
+            $this->entityManager->flush();
+        }
+    }
+
+    private function importModuleHyperlinks() {
+        $response = $this->getRequestToApi('module_hyperlinks');
+
+        foreach($response['hydra:member'] as $hydraModuleHyperlinks) {
+            $module = $this->doctrine->getRepository(Module::class)->findOneBy(['externalId' => $hydraModuleHyperlinks['module']]);
+
+            if (!$module) {
+                continue;
+            }
+
+            $moduleHyperlink = new ModuleHyperlink();
+            $moduleHyperlink->setTitle($hydraModuleHyperlinks['title'])
+                ->setUrl($hydraModuleHyperlinks['url'])
+                ->setExternalId($hydraModuleHyperlinks['@id'])
+                ->setModule($module);
+
+            $this->entityManager->persist($moduleHyperlink);
+            $this->entityManager->flush();
+        }
     }
 }
