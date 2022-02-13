@@ -1,0 +1,12 @@
+<ul>
+    {% for guideline in guidelines %}
+        <li>
+            {{  guideline.title }}
+            <ul>
+                {% for guidelineNavigation in guideline.guidelineNavigations %}
+                    <li>{{  guidelineNavigation.title }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
