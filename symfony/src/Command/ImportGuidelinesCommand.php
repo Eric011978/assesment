@@ -94,7 +94,7 @@ class ImportGuidelinesCommand extends Command
     private function importGuidelines() {
         $response = $this->getRequestToApi('guidelines?order[authorisationDate]=desc');
 
-        foreach(array_slice($response['hydra:member'], 0, 24) as $hydraGuideline) {
+        foreach(array_slice($response['hydra:member'], 0, 25) as $hydraGuideline) {
             $guideline = new Guideline();
             $guideline->setTitle($hydraGuideline['title'])
                 ->setExternalId($hydraGuideline['@id']);
