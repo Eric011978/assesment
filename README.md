@@ -3,7 +3,7 @@
 Up-to-date maken composer
 
 ```bash
-Composer install
+composer install
 ```
 
 Database instellingen goed zetten in de .env
