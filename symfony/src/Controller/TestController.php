@@ -29,7 +29,7 @@ class TestController
                     'Authorization' =>  $responseArray['token_type'] . ' ' . $responseArray['access_token'],
                 ],
             ]);
-        var_dump($response->toArray()); die;
+        dump($response->toArray()); die;
 
         $statusCode = $response->getStatusCode();
         // $statusCode = 200
