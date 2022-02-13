@@ -94,18 +94,14 @@ class ImportGuidelinesCommand extends Command
     private function importGuidelines() {
         $response = $this->getRequestToApi('guidelines?order[authorisationDate]=desc');
 
-        foreach($response['hydra:member'] as $index => $hydraGuideline) {
+        foreach(array_slice($response['hydra:member'], 0, 24) as $hydraGuideline) {
             $guideline = new Guideline();
             $guideline->setTitle($hydraGuideline['title'])
                 ->setExternalId($hydraGuideline['@id']);
 
             $this->entityManager->persist($guideline);
-            $this->entityManager->flush();
-
-            if ($index == 24) {
-                break;
-            }
         }
+        $this->entityManager->flush();
     }
 
 
@@ -118,8 +114,8 @@ class ImportGuidelinesCommand extends Command
                 ->setExternalId($hydraModule['@id']);
 
             $this->entityManager->persist($module);
-            $this->entityManager->flush();
         }
+        $this->entityManager->flush();
     }
 
 
@@ -142,8 +138,8 @@ class ImportGuidelinesCommand extends Command
                 ->setModule($module);
 
             $this->entityManager->persist($guidelineNavigation);
-            $this->entityManager->flush();
         }
+        $this->entityManager->flush();
     }
 
 
@@ -165,6 +161,7 @@ class ImportGuidelinesCommand extends Command
             $this->entityManager->persist($moduleReference);
             $this->entityManager->flush();
         }
+        $this->entityManager->flush();
     }
 
     private function importModuleHyperlinks() {
@@ -184,7 +181,7 @@ class ImportGuidelinesCommand extends Command
                 ->setModule($module);
 
             $this->entityManager->persist($moduleHyperlink);
-            $this->entityManager->flush();
         }
+        $this->entityManager->flush();
     }
 }
